@@ -265,3 +265,46 @@
  > 서비스 이용불가
  * 서버가 일시적 과부하 또는 예정된 작업으로 잠시 요청을 처리할 수 없음
  * Retry-After헤더 필드로 얼마뒤에 복구되는지 보낼수도 있다
+
+## HTTP 헤더 - 일반헤더
+ ### HTTP헤더
+ * header-field = field-name ":" OWS fiek-value OWS (OWS:띄어쓰기 허용)
+ * field-name은 대소문자 구문 없음
+ ```
+ HTTP/1.1 200 OK
+ Content-Type:text/html;charset=UTF-8
+ Content-Length: 3423
+ Content-Type,Content-Length : header-field
+ text/html;charset=UTF-8,3423 : header-value
+ 
+ 바디....
+ ```
+ * HTTP 전송에 필요한 모든 부가정보
+ * 예) 메시지 바디의 내용, 메시지 바디의 크기,압축,인증,요청클라이언트,서버 정보,캐시관리정보
+ * 표준 헤더가 너무 많음
+ * 필요시 임의의 헤더추가 가능
+ ### HTTP BODY
+ * 메시지 본문을 통해 표현 데이터 전달
+ * 메시지 본문 = 페이로드
+ * 표현은 요청이나 응답에서 전달할 실제 데이터
+ * 표현헤더는 표현 데이터를 해석할 수 있는 정보 제공
+   * 데이터 유형(html, json), 데이터 길이, 압축 정보 등등
+ * 참고 : 표현 헤더는 표현 메타데이터와, 페이로드 메시지를 구분해야하지만 일단 생략
+ ### 표현
+ > 어떤 리소스를 html이라는 '표현'으로 전달할건지, json이라는 데이터 형태의 표현으로 전달할것인지? 느낌 이해했다. 
+ * Content-Type : 표현 데이터의 형식
+   * 미디어 타입, 문자인코딩
+   * http 바디의 내용의 타입에 대한 정보와 문자 인코딩 정보를 말한다.
+   * 예) text/html; charset=UTF-8,  application/json, image/png
+ * Content-Encoding : 표현 데이터의 압축방식
+   * 표현데이터를 압축하기 위해 주로 사용
+   * 데이터를 전달하는 곳에서 압축후 인코딩헤더 추가
+   * 데이터를 읽는 쪽에서 인코딩 헤더의 정보로 압축 해제
+   * 예) gzip, deflate, identity 등
+ * Content-Language : 표현 데이터의 자연 언어
+   * 표현 데이터의 자연언어를 표현. 즉 바디에 어떤 언어의 내용이 들어가 있는지 설명해준다
+   * 예) Content-Language : ko,en ,en-US 
+ * Content-Length : 표현 데이터의 길이
+   * 바이드 단위
+   * Transfer-Encoding을 사용하면 Content-Length를 사용하면 안된다.
+  ###  
