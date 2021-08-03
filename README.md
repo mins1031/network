@@ -36,6 +36,12 @@ https://www.youtube.com/watch?v=1pfTxp25MA8&list=LL&index=39&t=21s 시청후 정
  * 뿐만아니라 TCP/IP소켓 프로그래밍을 통해 누구나 자신만의 Application layer 인코더와 디코더를 만들수 있다. 이말은 누구나 자신만의 Application Layer 프로토콜(통신규약)을 만들어서 사용할수 있다는 의미이다
  * Application Layer도 인코더,디코더가 있는데 대표적인 Application Layer 프로토콜은 HTTP 이다.
 
+## SSH (Secure shell)
+> 원격지에 있는 컴퓨터를 안전하게 제어하기 위한 '프로토콜' 또는 이 프로토콜을 사용하는 프로그램들을 모두SSH라고 한다.
+* ssh클라이언트와 ssh 서버의 관계로 상호작용하면서 ssh서버가 설치된 운영체제를 제어할수 있게한다.
+* 클라와 서버간엔 암호화 방법을 통해 연결되어 있기 때문에 데이터를 중간에서 가로채도 해석할 수 없는 암호화된 문자만이 노출된다. Telnet의 대체용 통신방법.
+<img src="https://s3.ap-northeast-2.amazonaws.com/opentutorials-user-file/module/432/1210.gif"/>
+* ssh는 비밀번호로 접근할 수 있지만 비밀번호 방식보다 저 보안적으로 뛰어난 ssh key방식을 사용하기도 한다. ket방식은 rsa 알고리즘을 따라 공개키와 개인키로 인증과정을 거친다고 한다.
 
 ## 1. IP(인터넷 프로토콜)
 > Http 프로토콜을 이해하기 전 기본 배경지식으로 알고 있어야하는 항목
