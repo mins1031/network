@@ -41,7 +41,7 @@ https://www.youtube.com/watch?v=1pfTxp25MA8&list=LL&index=39&t=21s 시청후 정
 * ssh클라이언트와 ssh 서버의 관계로 상호작용하면서 ssh서버가 설치된 운영체제를 제어할수 있게한다.
 * 클라와 서버간엔 암호화 방법을 통해 연결되어 있기 때문에 데이터를 중간에서 가로채도 해석할 수 없는 암호화된 문자만이 노출된다. Telnet의 대체용 통신방법.
 <img src="https://s3.ap-northeast-2.amazonaws.com/opentutorials-user-file/module/432/1210.gif"/>
-* ssh는 비밀번호로 접근할 수 있지만 비밀번호 방식보다 저 보안적으로 뛰어난 ssh key방식을 사용하기도 한다. ket방식은 rsa 알고리즘을 따라 공개키와 개인키로 인증과정을 거친다고 한다.
+* ssh는 비밀번호로 접근할 수 있지만 비밀번호 방식보다 저 보안적으로 뛰어난 ssh key방식을 사용하기도 한다. ke방식은 rsa 알고리즘을 따라 공개키와 개인키로 인증과정을 거친다고 한다.
 
 ## 1. IP(인터넷 프로토콜)
 > Http 프로토콜을 이해하기 전 기본 배경지식으로 알고 있어야하는 항목
@@ -60,6 +60,8 @@ https://www.youtube.com/watch?v=1pfTxp25MA8&list=LL&index=39&t=21s 시청후 정
      
  ## TCP,UDP
   ### 인터넷 프로토콜 스택의 4계층
+  <img src="https://t1.daumcdn.net/cfile/tistory/998660345D6BC86E28"/>
+  
    * 어플리케이션 계층 - HTTP,FTP
    * 전송계층 - TCP,UDP
    * 인터넷 계층 - IP
@@ -546,3 +548,18 @@ https://www.youtube.com/watch?v=1pfTxp25MA8&list=LL&index=39&t=21s 시청후 정
     * must-revalidate는 캐시 유효 시간이라면 캐시를 사용함
   * Pragma : no-cache
    * HTTP 1.0 하위 호환 
+## HTTP VS HTTPS
+**https://m.blog.naver.com/xcripts/70122755291 블로그 참고** 
+> HTTP는 Hypertest Transfer Protocol의 약자로 서로 다른 시스템들 사이에서 통신을 주고받게 해주는 가장 기초적인 프로토콜이다. HTTPS는 Hypertest Transfer Protocol Secure의 약자로 일반 HTTP의 문제점은 서버와 클라이언트 사이에 전송되는 정보가 암호화 되지않아 해킹의 위험이 존재한다는 것이었는데 HTTPS는 SSL(보안 소캣 계층)을 사용함으로써 이문제를 해결했다. 
+
+<img src="https://mblogthumb-phinf.pstatic.net/20111101_242/xcripts_13200748983039vwuB_JPEG/%B0%E8%C3%FE.jpg?type=w2"/>
+
+* 위와 같이 기존 TCP/IP 4계층의 응용계층과 전송계층 사이에 독립적인 프로토콜 계층을 만들어서 동작한다 * * 이때 응용계층의 프로토콜들은 외부로 보내는 데이터를 원래는 바로 응용계층 -> 전송계층(TCP/IP)로 보냈다면 응용계층에서 SSL로 보내게 되면 SSL은 받은 데이터를 암호화 하여 전송계층에 보낸다. 
+* 이 과정에서 **전송계층은 TCP는 SSL계층을 응용계층으로 인식하고** 또한 **데이터를 전달받아 응용계층으로 올릴때도 응용계층은 SSL을 전송계층 데이터로 인식하기** 때문에 기존 전달방식은 유지하되 SSL만 끼어있는 상황이라고 할 수 있다. 
+* 응용계층(어플리케이션 계층)에서 HTTP를 사용하고 이 HTTP를 사용한 데이터가 SSL계층을 이용하면 HTTPS가 된다고 이해하면 된다.
+* SSL은 TCP 위에서 Record Protocol을 통해 실질적인 보안서비스를 제공하고 Handshake, Change Cipher Spec, Alert Protocol을 통해 SSL동작에 관한 관리를 하게된다.
+* SSL 통신 절차
+  1) 클라이언트가 서버에 접속하면 서버 인증서(서버의 공개키를 인증기관이 전자서명으로 인증한것)를 전송받는다.
+  2) 클라이언트는 받은 서버인증서를 분석해 신뢰할 인증서인지 검토후 인증서에서 서버의 공개키를 추출한다.
+  3) 클라가 새션키로 사용할 임의의 메세지를 서버의 공개키로 암호화하여 서버에 전송한다.
+  4) 서버에선 자신의 개인키로 세션키를 복호화 하여 그 키를 사용해 대칭키 암호 방식으로 메세지를 암호화 하여 클라와 통신하게 된다.
