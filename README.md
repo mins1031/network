@@ -536,45 +536,47 @@ https://www.youtube.com/watch?v=1pfTxp25MA8&list=LL&index=39&t=21s 시청후 정
 
   #### 캐시제어헤더
    * cache-control : 캐시 제어
-    * max-age : 캐시 유효 시간, 초단위
-    * no-cache : 데이터는 캐시해도 되지만, 항상 서버에 검증하고 사용.즉 캐시에 두긴하지만 사용시 항상 서버에 접근해 검증후 사용해야한다는것.
-    * no-store : 데이텅 민감함 정보가 있으므로 저장하면 안된다는 의미(메모리에서 사용하고 최대한 빨리 삭제)
+     * max-age : 캐시 유효 시간, 초단위
+     * no-cache : 데이터는 캐시해도 되지만, 항상 서버에 검증하고 사용.즉 캐시에 두긴하지만 사용시 항상 서버에 접근해 검증후 사용해야한다는것.
+     * no-store : 데이텅 민감함 정보가 있으므로 저장하면 안된다는 의미(메모리에서 사용하고 최대한 빨리 삭제)
    * Pragma : 캐시 제어 (하위 호환)
-    * 거의 사용안한다고함 
+     * 거의 사용안한다고함 
    * Expires : 캐시 유효기간 (하위 호환)
-    * 캐시 지시어, 캐시만료일 지정
-    * 다만 날짜로만 지정하고 초단위로는 할수 없어 max-age가 훨씬 유연함.
-    * cache-control : max-age가 함께 사용되면 Expires는 무시됨
+     * 캐시 지시어, 캐시만료일 지정
+     * 다만 날짜로만 지정하고 초단위로는 할수 없어 max-age가 훨씬 유연함.
+     * cache-control : max-age가 함께 사용되면 Expires는 무시됨
   
   ### 프록시 캐시 (CDN 서비스)
   > 원(origin) 서버. 만약 미국에 원 서버가 있는경우 원서버에 데이터를 요청하면 0.5초가 걸리게 된다. 이렇게 되면 클라들은 모두 0.5초씩 기다려야하는데 중간(한국 어딘가..)에 프록시 캐시서버를 두고 DNS서버 요청이오면 프록시 서버를 거쳐서 오게한다. 이렇게 하면 속도가 훨씬 향상된다.
   > 예를들어 유튜브를 봐도 한국에서 많이보는 컨탠츠 들은 로딩속도가 빠른데 생영어로된 외국강의 영상을 보게되면 로딩속도가 느리다 
 * 프록시 캐시 서버를 'public 캐시', 프록시 캐시 서버에서 받은 캐시를 'private 캐시'라고 한다
 * 캐시 지시어(directives) - 기타
- * Cache-Control: public 
-  * 응답이 public 캐시에 저장되어도 됨
- * Cache-Control: private 
-  * 응답이 해당 사용자만을 위한 것임, private 캐시에 저장해야 함(기본값)
- * Cache-Control: s-maxage 
-  * 프록시 캐시에만 적용되는 max-age
- * Age: 60 (HTTP 헤더)
-  * 오리진 서버에서 응답 후 프록시 캐시 내에 머문 시간(초)
+  * Cache-Control: public 
+    * 응답이 public 캐시에 저장되어도 됨
+  * Cache-Control: private 
+    * 응답이 해당 사용자만을 위한 것임, private 캐시에 저장해야 함(기본값)
+  * Cache-Control: s-maxage 
+    * 프록시 캐시에만 적용되는 max-age
+  * Age: 60 (HTTP 헤더)
+    * 오리진 서버에서 응답 후 프록시 캐시 내에 머문 시간(초)
 
  ### 캐시 무효화
  > 캐시를 서버에서 주는것이 아니면 적용이 안되는것이 아닌 브라우저 자체에서도 사용자 편의를 위해 캐시를 만든다고 한다. 그래서 해당페이지에 절대 캐시가 적용되면 안되는 경우 밑의 조건들을 적용시켜야 한다고 한다.
   * Cache-Control : no-cache, no-store, must-revalidate
-   *  Cache-Control: no-cache   
-    * 데이터는 캐시해도 되지만, 항상 원 서버에 검증하고 사용(이름에 주의!)
-   * Cache-Control: no-store 
-    * 데이터에 민감한 정보가 있으므로 저장하면 안됨 (메모리에서 사용하고 최대한 빨리 삭제)
-   * Cache-Control: must-revalidate 
-    * 캐시 만료후 최초 조회시 원 서버에 검증해야함
-    * 원 서버 접근 실패시 반드시 오류가 발생해야함 - 504(Gateway Timeout)
-    * must-revalidate는 캐시 유효 시간이라면 캐시를 사용함
-  * Pragma : no-cache
-   * HTTP 1.0 하위 호환 
+    *  Cache-Control: no-cache   
+      * 데이터는 캐시해도 되지만, 항상 원 서버에 검증하고 사용(이름에 주의!)
+    * Cache-Control: no-store 
+      * 데이터에 민감한 정보가 있으므로 저장하면 안됨 (메모리에서 사용하고 최대한 빨리 삭제)
+    * Cache-Control: must-revalidate 
+      * 캐시 만료후 최초 조회시 원 서버에 검증해야함
+      * 원 서버 접근 실패시 반드시 오류가 발생해야함 - 504(Gateway Timeout)
+      * must-revalidate는 캐시 유효 시간이라면 캐시를 사용함
+    * Pragma : no-cache
+      * HTTP 1.0 하위 호환 
+    
 ## HTTP VS HTTPS
 **https://m.blog.naver.com/xcripts/70122755291 블로그 참고** 
+
 > HTTP는 Hypertest Transfer Protocol의 약자로 서로 다른 시스템들 사이에서 통신을 주고받게 해주는 가장 기초적인 프로토콜이다. HTTPS는 Hypertest Transfer Protocol Secure의 약자로 일반 HTTP의 문제점은 서버와 클라이언트 사이에 전송되는 정보가 암호화 되지않아 해킹의 위험이 존재한다는 것이었는데 HTTPS는 SSL(보안 소캣 계층)을 사용함으로써 이문제를 해결했다. 
 
 <img src="https://mblogthumb-phinf.pstatic.net/20111101_242/xcripts_13200748983039vwuB_JPEG/%B0%E8%C3%FE.jpg?type=w2"/>
